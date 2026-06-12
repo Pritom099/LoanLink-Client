@@ -3,9 +3,38 @@ import { AiOutlineBars } from "react-icons/ai";
 // import { FcSettings } from "react-icons/fc";
 import { GrLogout } from "react-icons/gr";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { FcSettings } from "react-icons/fc";
+import MenuItem from "./Menu/MenuItem";
 
 
 const Sidebar = () => {
+    const {logOut} = useAuth();
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, logout!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logOut()
+                    .then(() => {
+                        toast.success("Logout Successful");
+                    })
+                    .catch(() => {
+                        toast.error("Logout Failed");
+                    });
+            }
+        });
+    };
+
     return (
         <>
             {/* Small Screen Navbar, only visible till md breakpoint */}
@@ -70,13 +99,13 @@ const Sidebar = () => {
                     <div>
                         <hr />
 
-                        {/* <MenuItem
+                        <MenuItem
                             icon={FcSettings}
                             label='Profile'
                             address='/dashboard/profile'
-                        /> */}
+                        />
                         <button
-
+                            onClick={handleLogout}
                             className='flex cursor-pointer w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
                         >
                             <GrLogout className='w-5 h-5' />
