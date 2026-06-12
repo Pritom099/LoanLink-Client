@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.my-btn {
+  @apply btn bg-black text-white font-bold border-none hover:scale-105 transition-transform duration-200 p-5;
+}
+
+.our-btn {
+  @apply btn bg-white text-black font-bold border hover:scale-105 transition-transform duration-200 p-5;
+}
+
+body {
+  margin: 0;
+}
