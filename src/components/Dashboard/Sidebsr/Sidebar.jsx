@@ -8,6 +8,9 @@ import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { FcSettings } from "react-icons/fc";
 import MenuItem from "./Menu/MenuItem";
+import CustomerMenu from "./Menu/CustomerMenu";
+import AdminMenu from "./Menu/AdminMenu";
+import { FaHome } from "react-icons/fa";
 
 
 const Sidebar = () => {
@@ -82,15 +85,14 @@ const Sidebar = () => {
                         {/*  Menu Items */}
                         <nav>
                             {/* Common Menu */}
-                            {/* <MenuItem
-                                icon={BsGraphUp}
-                                label='Statistics'
+                            <MenuItem
+                                icon={FaHome}
+                                label='Dashboard'
                                 address='/dashboard'
-                            /> */}
-                            {/* Role-Based Menu */}
-                            {/* {role === 'customer' && <CustomerMenu />}
-                            {role === 'seller' && <SellerMenu />}
-                            {role === 'admin' && <AdminMenu />} */}
+                            /> 
+                            
+                           <CustomerMenu></CustomerMenu>
+                           <AdminMenu></AdminMenu>
 
                         </nav>
                     </div>

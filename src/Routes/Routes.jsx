@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Banner2 from "../components/Banner/Banner2";
 import Profile from "../pages/Dashboard/Common/Profile";
+import Dashboard from "../pages/Dashboard/Common/Dashboard";
 
 
 export const router = createBrowserRouter([
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
         path: '/dashboard',
         element: <DashboardLayout></DashboardLayout>,
         children: [
+            {
+                index: true,
+                element: <Dashboard></Dashboard>
+            },
             {
                 path: 'profile',
                 element:(
