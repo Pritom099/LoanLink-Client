@@ -113,8 +113,8 @@ const CustomerStatistics = () => {
                             </div>
                             <div className="flex items-center justify-between  border-b pb-3">
                                 <div>
-                                    <p className="font-bold">$5,000</p>
-                                    <p>Jun 15, 2024</p>
+                                    <p className="font-bold">$10,000</p>
+                                    <p>May 20, 2024</p>
                                 </div>
                                 <div className="border border-gray-400 rounded-xl bg-green-500 py-1 px-3">
                                     <p className="text-sm">Active</p>
@@ -122,11 +122,11 @@ const CustomerStatistics = () => {
                             </div>
                             <div className="flex items-center justify-between  border-b pb-3">
                                 <div>
-                                    <p className="font-bold">$5,000</p>
-                                    <p>Jun 15, 2024</p>
+                                    <p className="font-bold">$3,000</p>
+                                    <p>Apr 10, 2024</p>
                                 </div>
-                                <div className="border border-gray-400 rounded-xl bg-green-500 py-1 px-3">
-                                    <p className="text-sm">Active</p>
+                                <div className="border border-gray-400 rounded-xl bg-green-100 py-1 px-3">
+                                    <p className="text-sm">Completed</p>
                                 </div>
                             </div>
                         </div>
