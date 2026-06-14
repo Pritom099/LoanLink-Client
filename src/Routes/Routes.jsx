@@ -7,6 +7,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Banner2 from "../components/Banner/Banner2";
 import Profile from "../pages/Dashboard/Common/Profile";
 import Dashboard from "../pages/Dashboard/Common/Dashboard";
+import LoanApply from "../pages/Dashboard/Customer/LoanApply";
 import MyLoans from "../pages/Dashboard/Customer/MyLoans";
 
 
@@ -48,9 +49,13 @@ export const router = createBrowserRouter([
                 ),
             },
             {
+                path: 'loan-applications',
+                element:<LoanApply></LoanApply>
+            },
+            {
                 path: 'my-loans',
                 element: <MyLoans></MyLoans>
-            },
+            }
         ],
     }
 
