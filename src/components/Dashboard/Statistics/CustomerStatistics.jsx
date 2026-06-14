@@ -2,6 +2,8 @@ import { CiViewList } from "react-icons/ci";
 import { FaArrowRight, FaCheckCircle, FaDollarSign, FaHandHoldingUsd, FaRegClock } from "react-icons/fa";
 import { RiFirefoxBrowserLine } from "react-icons/ri";
 import { Link } from "react-router";
+import CustomerChart from "./CustomerChart";
+import BalanceChart from "./BalanceChart";
 
 
 const CustomerStatistics = () => {
@@ -74,9 +76,15 @@ const CustomerStatistics = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-10">
-                <div className="col-span-2">
-                    <div className="border p-5">
-                        <h1 className="text-xl font-bold">Loan Activity</h1>
+                <div className="col-span-2 space-y-10">
+                    <div className="border border-gray-300 rounded-xl p-5">
+                        <h1 className="text-xl font-bold mb-7">Loan Activity</h1>
+                        <CustomerChart></CustomerChart>
+                    </div>
+
+                    <div className="border border-gray-300 rounded-xl p-5">
+                        <h1 className="text-xl font-bold mb-7">Account Balance</h1>
+                        <BalanceChart></BalanceChart>      
                     </div>
                 </div>
 
