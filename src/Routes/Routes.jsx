@@ -9,6 +9,7 @@ import Profile from "../pages/Dashboard/Common/Profile";
 import Dashboard from "../pages/Dashboard/Common/Dashboard";
 import LoanApply from "../pages/Dashboard/Customer/LoanApply";
 import MyLoans from "../pages/Dashboard/Customer/MyLoans";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 
 
 export const router = createBrowserRouter([
@@ -55,7 +56,11 @@ export const router = createBrowserRouter([
             {
                 path: 'my-loans',
                 element: <MyLoans></MyLoans>
-            }
+            },
+            {
+                path: 'manage-users',
+                element: <ManageUsers></ManageUsers>
+            },
         ],
     }
 

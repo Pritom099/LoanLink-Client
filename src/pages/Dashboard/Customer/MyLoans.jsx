@@ -1,3 +1,6 @@
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router";
+import LoanTable from "./LoanTable";
 
 
 const MyLoans = () => {
@@ -21,6 +24,20 @@ const MyLoans = () => {
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Completed Loans</h2>
                     <p className="text-4xl font-bold ">2</p>
+                </div>
+            </div>
+
+            <div className="p-5 mt-8">
+                <div className="border border-gray-300 rounded-xl ">
+                    <LoanTable></LoanTable>
+                </div>
+            </div>
+
+            <div className="p-5 mt-8">
+                <div className="space-y-7 border border-gray-300 rounded-xl py-8 text-center bg-gray-100">
+                    <h1 className="text-2xl font-bold">Need More Funds?</h1>
+                    <p className="text-lg text-gray-500">Browse our loan options and apply for additional financing</p>
+                    <Link className="my-btn">Browse Loans <FaArrowRight /></Link>
                 </div>
             </div>
         </div>
