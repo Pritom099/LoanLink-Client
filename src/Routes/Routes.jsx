@@ -10,6 +10,7 @@ import Dashboard from "../pages/Dashboard/Common/Dashboard";
 import LoanApply from "../pages/Dashboard/Customer/LoanApply";
 import MyLoans from "../pages/Dashboard/Customer/MyLoans";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import BrowseLoans from "../components/BrowseLoans/BrowseLoans";
 
 
 export const router = createBrowserRouter([
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: '/how-works',
                 element: <Banner2></Banner2>,
+            },
+            {
+                path: 'browse-loans',
+                element: <BrowseLoans></BrowseLoans>
             },
         ],
     },

@@ -1,4 +1,5 @@
 import { Clock, DollarSign, HandFist, LeafyGreen, Shield, Zap } from "lucide-react";
+import { Link } from "react-router";
 
 
 const Banner3 = () => {
@@ -159,9 +160,9 @@ const Banner3 = () => {
                     {/* Buttons */}
                     <div className="flex flex-col sm:flex-row justify-center gap-4 py-8 border-b">
                         <button className="my-btn">Apply Now</button>
-                        <button className="our-btn">
+                        <Link to='/browse-loans' className="our-btn">
                             Browse Loans
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Subscribe Section */}

@@ -50,7 +50,7 @@ const Navbar = () => {
                     <ul
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <Link className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
+                        <Link to='/browse-loans' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
                         {user && <Link to='/dashboard' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Dashboard</Link>}
                         <Link to='/how-works' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>How it Works</Link>
                     </ul>
@@ -64,7 +64,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <Link className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
+                    <Link to='/browse-loans' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
                     {user && <Link to='/dashboard' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Dashboard</Link>}
                     <Link to='/how-works' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>How it Works</Link>
                 </ul>

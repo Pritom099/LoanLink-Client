@@ -93,8 +93,8 @@ const CustomerStatistics = () => {
                     <div className=" p-5 border border-gray-400 rounded-xl">
                         <h1 className="font-bold">Quick Actions</h1>
                         <div className="flex flex-col py-5 px-4 gap-3">
-                            <Link className="my-btn"><RiFirefoxBrowserLine className="text-xl"/>Browse Loans</Link>
-                            <Link className="my-btn"><CiViewList  className="text-xl"/>View My Loans</Link>
+                            <Link to='/browse-loans' className="my-btn"><RiFirefoxBrowserLine className="text-xl"/>Browse Loans</Link>
+                            <Link to='my-loans' className="my-btn"><CiViewList  className="text-xl"/>View My Loans</Link>
                         </div>
                     </div>
 

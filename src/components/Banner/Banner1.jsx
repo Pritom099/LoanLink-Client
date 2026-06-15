@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Banner1 = () => {
     return (
         <div>
@@ -9,7 +11,7 @@ const Banner1 = () => {
                     complicated processes. Just straightforward funding when you need it most.
                 </p>
                 <div>
-                    <button className="my-btn mr-5">Browse Loans</button>
+                    <Link to='/browse-loans' className="my-btn mr-5">Browse Loans</Link>
                     <button className="our-btn">
                         Get Started Free
                     </button>
