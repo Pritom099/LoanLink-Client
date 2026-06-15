@@ -1,8 +1,9 @@
+import LoanCard from "./LoanCard";
 
 const BrowseLoans = () => {
     return (
         <div>
-            <div className="p-10 border-b">
+            <div className="py-10 px-20 border-b">
                 <h1 className="text-4xl font-bold mb-5">Browse All Loans</h1>
                 <p className="text-lg text-gray-500">Find the perfect microloan option for your needs</p>
             </div>
@@ -27,6 +28,12 @@ const BrowseLoans = () => {
                         className="w-full outline-none bg-transparent"
                     />
                 </label>
+                <p className="mt-8 text-lg text-gray-500">Showing 6 loans:</p>
+            </div>
+
+            <div className="py-5 px-10 md:px-20">
+
+                <LoanCard></LoanCard>
             </div>
         </div>
     );

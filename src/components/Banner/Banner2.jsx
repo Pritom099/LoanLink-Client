@@ -9,7 +9,7 @@ const Banner2 = () => {
         Get funded in just 4 simple steps
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6  mx-auto max-w-7xl">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-10  mx-auto max-w-7xl">
         
         <div className="card bg-base-100 shadow-xl border border-gray-300">
           <div className="card-body">

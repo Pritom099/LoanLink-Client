@@ -11,10 +11,12 @@ import MenuItem from "./Menu/MenuItem";
 import CustomerMenu from "./Menu/CustomerMenu";
 import AdminMenu from "./Menu/AdminMenu";
 import { FaHome } from "react-icons/fa";
+import { useState } from "react";
 
 
 const Sidebar = () => {
-    const {logOut} = useAuth();
+    const { logOut } = useAuth();
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleLogout = () => {
         Swal.fire({
@@ -54,8 +56,8 @@ const Sidebar = () => {
                 </div>
 
                 <button
-
-                    className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'
+                    onClick={() => setIsOpen(!isOpen)}
+                    className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200 z-30 mr-10'
                 >
                     <AiOutlineBars className='h-5 w-5' />
                 </button>
@@ -63,8 +65,9 @@ const Sidebar = () => {
 
             {/* Sidebar */}
             <div
-                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform 
-                     md:translate-x-0  transition duration-200 ease-in-out`}
+                className={`md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-56 space-y-6 px-2 py-4 absolute top-16 bottom-0 left-0 transform 
+  ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
+  md:top-0 md:translate-x-0 transition duration-200 ease-in-out z-10`}
             >
                 <div className='flex flex-col h-full'>
                     {/* Top Content */}
@@ -89,10 +92,10 @@ const Sidebar = () => {
                                 icon={FaHome}
                                 label='Dashboard'
                                 address='/dashboard'
-                            /> 
-                            
-                           <CustomerMenu></CustomerMenu>
-                           <AdminMenu></AdminMenu>
+                            />
+
+                            <CustomerMenu></CustomerMenu>
+                            <AdminMenu></AdminMenu>
 
                         </nav>
                     </div>

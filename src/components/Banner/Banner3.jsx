@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const Banner3 = () => {
     return (
         <div>
-            <div className="flex flex-col items-center justify-center py-20 bg-base-200">
+            <div className="flex flex-col items-center justify-center px-10 py-20 bg-base-200">
                 <h1 className="text-4xl font-bold">Why Choose LoanLink?</h1>
                 <p className="text-lg text-gray-500 mt-5">We're committed to making microloans accessible to everyone</p>
 
@@ -55,7 +55,7 @@ const Banner3 = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center py-20">
+            <div className="flex flex-col items-center justify-center px-10 py-20">
                 <h1 className="text-4xl font-bold">What Our Customers Say</h1>
                 <p className="text-lg text-gray-500 mt-5">Join thousands of satisfied customers who got funded with LoanLink</p>
 
@@ -95,7 +95,7 @@ const Banner3 = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center py-20">
+            <div className="flex flex-col items-center justify-center px-10 py-20">
                 <h1 className="text-4xl font-bold">Frequently Asked Questions</h1>
                 <p className="text-lg text-gray-500 mt-5">Everything you need to know about LoanLink</p>
 
