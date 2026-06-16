@@ -11,6 +11,7 @@ import LoanApply from "../pages/Dashboard/Customer/LoanApply";
 import MyLoans from "../pages/Dashboard/Customer/MyLoans";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import BrowseLoans from "../components/BrowseLoans/BrowseLoans";
+import LoanDetail from "../components/BrowseLoans/LoanDetail";
 
 
 export const router = createBrowserRouter([
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
             {
                 path: 'browse-loans',
                 element: <BrowseLoans></BrowseLoans>
+            },
+            {
+                path: '/loan-details',
+                element: <LoanDetail></LoanDetail>
             },
         ],
     },

@@ -1,8 +1,9 @@
 import { FiTrendingUp } from "react-icons/fi";
+import { Link } from "react-router";
 
 const LoanCard = () => {
     return (
-        <div className=" grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 dark:text-black">
             <div className="max-w-md rounded-2xl border border-gray-200 bg-gray-50 p-8">
 
                 {/* Amount */}
@@ -36,9 +37,11 @@ const LoanCard = () => {
                 </div>
 
                 {/* Button */}
-                <button className="mt-8 w-full rounded-xl bg-black py-4 text-lg font-semibold text-white transition hover:bg-gray-900">
+                <Link to='/loan-details'
+                    className="mt-8 block w-full rounded-xl bg-black py-4 text-lg font-semibold text-white text-center transition hover:bg-gray-900"
+                >
                     View Details
-                </button>
+                </Link>
 
             </div>
 
