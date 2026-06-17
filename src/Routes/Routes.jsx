@@ -4,7 +4,6 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import DashboardLayout from "../layouts/DashboardLayout";
-import Banner2 from "../components/Banner/Banner2";
 import Profile from "../pages/Dashboard/Common/Profile";
 import Dashboard from "../pages/Dashboard/Common/Dashboard";
 import LoanApply from "../pages/Dashboard/Customer/LoanApply";
@@ -12,6 +11,7 @@ import MyLoans from "../pages/Dashboard/Customer/MyLoans";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import BrowseLoans from "../components/BrowseLoans/BrowseLoans";
 import LoanDetail from "../components/BrowseLoans/LoanDetail";
+import ApplyLoan from "../components/Form/ApplyLoan";
 
 
 export const router = createBrowserRouter([
@@ -32,8 +32,8 @@ export const router = createBrowserRouter([
                 element: <SignUp />,
             },
             {
-                path: '/how-works',
-                element: <Banner2></Banner2>,
+                path: '/apply-loan',
+                element: <ApplyLoan></ApplyLoan>,
             },
             {
                 path: 'browse-loans',

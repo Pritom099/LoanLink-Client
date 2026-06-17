@@ -52,7 +52,8 @@ const Navbar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                         <Link to='/browse-loans' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
                         {user && <Link to='/dashboard' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Dashboard</Link>}
-                        <Link to='/how-works' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>How it Works</Link>
+                        {user && <Link to='/apply-loan' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Apply Loan</Link>}
+
                     </ul>
                 </div>
                 <Link to="/" className="flex items-center gap-2 font-bold text-xl ">
@@ -66,7 +67,7 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal px-1">
                     <Link to='/browse-loans' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
                     {user && <Link to='/dashboard' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Dashboard</Link>}
-                    <Link to='/how-works' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>How it Works</Link>
+                    {user && <Link to='/apply-loan' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Apply Loan</Link>}
                 </ul>
             </div>
             <div className="navbar-end gap-5">
