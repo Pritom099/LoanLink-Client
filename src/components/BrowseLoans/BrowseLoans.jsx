@@ -1,6 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoanCard from "./LoanCard";
 
 const BrowseLoans = () => {
+    const axiosSecure = useAxiosSecure();
+
+    const { data: loans = [], isLoading, isError } = useQuery({
+        queryKey: ['loans'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/loans');
+            return res.data;
+        }
+    })
+
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Error...</p>;
+
     return (
         <div>
             <div className="py-10 px-20 border-b">
@@ -32,8 +47,14 @@ const BrowseLoans = () => {
             </div>
 
             <div className="py-5 px-10 md:px-20">
+                <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 dark:text-black">
+                    {
+                        loans.map(loan => (
+                            <LoanCard key={loan._id} loan={loan}></LoanCard>
+                        ))
+                    }
+                </div>
 
-                <LoanCard></LoanCard>
             </div>
         </div>
     );
