@@ -4,7 +4,7 @@ const Banner2 = () => {
   return (
     <div className="flex flex-col items-center justify-center py-20">
       
-      <h1 className="text-4xl font-bold mb-2">How it Works</h1>
+      <h1 className="text-4xl font-bold mb-4">How it Works</h1>
       <p className="text-lg text-base-content/70 mb-10">
         Get funded in just 4 simple steps
       </p>

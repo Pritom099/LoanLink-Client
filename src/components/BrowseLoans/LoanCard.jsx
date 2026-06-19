@@ -4,26 +4,26 @@ import { Link } from "react-router";
 const LoanCard = ({ loan }) => {
     return (
 
-        <div className="max-w-md rounded-2xl border border-gray-200 bg-gray-50 p-8">
+        <div className="max-w-md rounded-2xl border border-gray-400 bg-gray-50 p-8">
 
             {/* Amount */}
-            <h2 className="text-4xl font-bold text-black">${loan.amount}</h2>
+            <h2 className="text-4xl font-bold text-black">${loan?.amount}</h2>
 
             {/* Description */}
             <p className="mt-3 text-gray-600 text-lg">
-                {loan.subtitle}
+                {loan?.subtitle}
             </p>
 
             {/* Loan Info */}
             <div className="mt-8 flex justify-between">
                 <div>
                     <p className="text-gray-500">Interest Rate</p>
-                    <p className="text-3xl font-bold">{loan.interestRate}%</p>
+                    <p className="text-3xl font-bold">{loan?.interestRate}%</p>
                 </div>
 
                 <div>
                     <p className="text-gray-500">Term</p>
-                    <p className="text-3xl font-bold">{loan.termMonths}months</p>
+                    <p className="text-3xl font-bold">{loan?.termMonths} months</p>
                 </div>
             </div>
 
@@ -33,11 +33,11 @@ const LoanCard = ({ loan }) => {
             {/* Approved Count */}
             <div className="flex items-center gap-3 text-black">
                 <FiTrendingUp size={22} />
-                <span className="text-2xl font-medium">{loan.approvedCount} approved</span>
+                <span className="text-2xl font-medium">{loan?.approvedCount} approved</span>
             </div>
 
             {/* Button */}
-            <Link to='/loan-details'
+            <Link to={`/loan-details/${loan._id}`}
                 className="mt-8 block w-full rounded-xl bg-black py-4 text-lg font-semibold text-white text-center transition hover:bg-gray-900"
             >
                 View Details

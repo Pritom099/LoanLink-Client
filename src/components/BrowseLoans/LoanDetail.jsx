@@ -1,15 +1,32 @@
 import { Percent, CalendarDays } from "lucide-react";
+import { useParams } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const LoanDetail = () => {
+    const { id } = useParams();
+    const axiosSecure = useAxiosSecure();
+
+    const { data: loan = {}, isLoading } = useQuery({
+        queryKey: ['loans', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/loans/${id}`);
+            return res.data;
+        },
+        enabled: !!id
+    })
+    if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+
     return (
         <div className="grid gap-6 lg:grid-cols-3 p-20">
             {/* Left Section */}
             <div className="lg:col-span-2 dark:text-black">
                 <div className=" rounded-3xl border border-gray-300 bg-gray-50 p-10">
-                    <h1 className="text-5xl font-bold text-black">$5,000 Microloan</h1>
+                    <h1 className="text-5xl font-bold text-black">${loan.amount} {loan.title}</h1>
 
                     <p className="mt-10 text-2xl text-gray-600">
-                        Emergency funds for unexpected expenses
+                        {loan.subtitle}
                     </p>
 
                     {/* Stats */}
@@ -17,52 +34,51 @@ const LoanDetail = () => {
                         <div>
                             <p className="mb-2 text-lg text-gray-500">Interest Rate</p>
                             <div className="flex items-center gap-2">
-                                <Percent size={24} />
-                                <span className="text-5xl font-bold">12.5%</span>
+                                <Percent size={30} />
+                                <span className="text-4xl font-bold">{loan.interestRate}%</span>
                             </div>
                         </div>
 
                         <div>
                             <p className="mb-2 text-lg text-gray-500">Loan Term</p>
                             <div className="flex items-center gap-2">
-                                <CalendarDays size={24} />
-                                <span className="text-5xl font-bold">24 mo</span>
+                                <CalendarDays size={30} />
+                                <span className="text-4xl font-bold">{loan.termMonths} months</span>
                             </div>
                         </div>
 
                         <div>
                             <p className="mb-2 text-lg text-gray-500">Already Approved</p>
-                            <span className="text-5xl font-bold">342+</span>
+                            <span className="text-4xl font-bold">{loan.approvedCount}+</span>
                         </div>
                     </div>
 
                     <hr className="my-10 border-gray-300" />
 
                     <p className="max-w-4xl text-xl leading-relaxed text-black">
-                        Our 5,000 microloan is designed for those who need quick access to
-                        funds for emergencies. Whether it's an unexpected medical bill, home
-                        repair, or other urgent expenses, we can have you approved and funded
-                        within hours.
+                        {loan.description}
                     </p>
                 </div>
 
                 <div className="border border-gray-300 rounded-3xl mt-8 p-10 bg-gray-50">
                     <h1 className="text-2xl font-bold mb-6">Key Features</h1>
-                    <p className="text-lg mb-2 font-semibold">1. Approval in as little as 2 hours</p>
-                    <p className="text-lg mb-2 font-semibold">2. Flexible 24-month repayment term</p>
-                    <p className="text-lg mb-2 font-semibold">3. No hidden fees or prepayment penalties</p>
-                    <p className="text-lg mb-2 font-semibold">4. 12.5% fixed interest rate</p>
-                    <p className="text-lg font-semibold">5. Available to borrowers with various credit profiles</p>
+                    {
+                        loan.features?.map((feature, index) => (
+                            <p key={index} className="text-lg mb-2 font-semibold">
+                                {index + 1}. {feature}
+                            </p>
+                        ))
+                    }
                 </div>
 
                 <div className="flex gap-10 mt-8">
                     <div className="bg-gray-50 border border-gray-300 rounded-3xl p-8  w-1/2">
                         <h1 className="mb-4">Monthly Payment</h1>
-                        <p className="text-2xl font-bold">$228</p>
+                        <p className="text-2xl font-bold">${loan.monthlyPayment}</p>
                     </div>
                     <div className="bg-gray-50 border border-gray-300 rounded-3xl p-8 w-1/2">
-                        <h1 className="mb-4">Monthly Payment</h1>
-                        <p className="text-2xl font-bold">$228</p>
+                        <h1 className="mb-4">Total Interest</h1>
+                        <p className="text-2xl font-bold">${loan.totalInterest}</p>
                     </div>
                 </div>
             </div>
@@ -80,7 +96,7 @@ const LoanDetail = () => {
                         <span className="mr-3 text-2xl text-gray-500">$</span>
                         <input
                             type="number"
-                            defaultValue="5000"
+                            defaultValue={loan.amount}
                             className="w-full bg-transparent text-xl outline-none"
                         />
                     </div>
@@ -89,19 +105,19 @@ const LoanDetail = () => {
                 <div className="mt-8 space-y-4">
                     <div className="flex justify-between text-xl">
                         <span className="text-gray-500">Interest Rate</span>
-                        <span className="font-semibold">12.5%</span>
+                        <span className="font-semibold">{loan.totalInterest}%</span>
                     </div>
 
                     <div className="flex justify-between text-xl">
                         <span className="text-gray-500">Term</span>
-                        <span className="font-semibold">24 months</span>
+                        <span className="font-semibold">{loan.termMonths} months</span>
                     </div>
 
                     <hr />
 
                     <div className="flex justify-between text-xl">
                         <span className="text-gray-500">Est. Monthly</span>
-                        <span className="font-bold">$240</span>
+                        <span className="font-bold">${loan.monthlyPayment}</span>
                     </div>
                 </div>
 

@@ -1,6 +1,23 @@
 import { Link } from "react-router";
+import LoanCard from "../BrowseLoans/LoanCard";
+import LoadingSpinner from "../shared/LoadingSpinner";
+import ErrorPage from "../../pages/ErrorPage";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Banner1 = () => {
+    const axiosSecure = useAxiosSecure();
+
+    const { data: loans = [], isLoading, isError } = useQuery({
+        queryKey: ['loans'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/loans');
+            return res.data;
+        }
+    })
+
+    if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+    if (isError) return <ErrorPage></ErrorPage>;
     return (
         <div>
             <div className="flex flex-col justify-center items-center gap-4  bg-base-200 py-20 px-10">
@@ -32,6 +49,19 @@ const Banner1 = () => {
                     <p className="text-gray-500">Customer Rating</p>
                 </div>
             </div>
+
+            <div className="text-center mt-10 mb-10">
+                <h1 className="text-4xl font-bold mb-4">Featured Loan Options</h1>
+                <p className="text-lg text-base-content/70 mb-10">Choose from our carefully curated selection of microloan products</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 mx-20">
+                    {
+                        loans.slice(0, 3).map(loan => (
+                            <LoanCard key={loan._id} loan={loan}></LoanCard>
+                        ))
+                    }
+                </div>
+            </div>
+
         </div>
     );
 };

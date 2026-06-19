@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoanCard from "./LoanCard";
+import LoadingSpinner from "../shared/LoadingSpinner";
+import ErrorPage from "../../pages/ErrorPage";
 
 const BrowseLoans = () => {
     const axiosSecure = useAxiosSecure();
@@ -13,8 +15,8 @@ const BrowseLoans = () => {
         }
     })
 
-    if (isLoading) return <p>Loading...</p>;
-    if (isError) return <p>Error...</p>;
+    if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+    if (isError) return <ErrorPage></ErrorPage>;
 
     return (
         <div>
