@@ -3,8 +3,10 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoanCard from "./LoanCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import ErrorPage from "../../pages/ErrorPage";
+import { useState } from "react";
 
 const BrowseLoans = () => {
+    const [search, setSearch] = useState("");
     const axiosSecure = useAxiosSecure();
 
     const { data: loans = [], isLoading, isError } = useQuery({
@@ -14,6 +16,10 @@ const BrowseLoans = () => {
             return res.data;
         }
     })
+
+    const filteredLoans = loans.filter(loan =>
+        loan.title?.toLowerCase().includes(search.trim().toLowerCase())
+    );
 
     if (isLoading) return <LoadingSpinner></LoadingSpinner>;
     if (isError) return <ErrorPage></ErrorPage>;
@@ -42,16 +48,18 @@ const BrowseLoans = () => {
                     <input
                         type="search"
                         placeholder="Search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         className="w-full outline-none bg-transparent"
                     />
                 </label>
-                <p className="mt-8 text-lg text-gray-500">Showing 6 loans:</p>
+                <p className="mt-8 text-lg text-gray-500">Showing {filteredLoans.length} loans:</p>
             </div>
 
             <div className="py-5 px-10 md:px-20">
                 <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 dark:text-black">
                     {
-                        loans.map(loan => (
+                        filteredLoans.map(loan => (
                             <LoanCard key={loan._id} loan={loan}></LoanCard>
                         ))
                     }
