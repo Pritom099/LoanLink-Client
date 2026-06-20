@@ -5,9 +5,15 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import ErrorPage from "../../pages/ErrorPage";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useLocation } from "react-router";
+import useAuth from "../../hooks/useAuth";
+
 
 const ApplyLoan = () => {
+    const location = useLocation();
+    const loan = location.state?.loan;
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
 
     const {
         isPending,
@@ -38,6 +44,7 @@ const ApplyLoan = () => {
         try {
             const loanData = {
                 loanId: data.loanId,
+                email: data.email,
                 title: data.title,
                 subtitle: data.subtitle,
                 amount: Number(data.amount),
@@ -75,10 +82,25 @@ const ApplyLoan = () => {
                     <div className="space-y-1">
                         <label className="text-sm text-gray-600">Loan ID</label>
                         <input
+                            defaultValue={loan?.loanId}
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 focus:border-lime-400 outline-none"
                             placeholder="LN-1001"
                             {...register("loanId", { required: "Loan ID required" })}
                         />
+                    </div>
+
+                    <div className="space-y-1">
+                        <label className="text-sm text-gray-600">Email</label>
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={user?.email}
+                            {...register("email", { required: "Email is required" })}
+                        />
+                        {errors.email && (
+                            <p className='text-red-500 text-xs mt-1'>{errors.email.message}</p>
+                        )}
                     </div>
 
                     {/* Title */}
@@ -88,8 +110,9 @@ const ApplyLoan = () => {
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
                             id='title'
                             type='text'
+                            defaultValue={loan?.title}
                             {...register("title", { required: true })}
-                            
+
                         />
                         {errors.title && (
                             <p className='text-red-500 text-xs mt-1'>{errors.title.message}</p>
@@ -102,6 +125,7 @@ const ApplyLoan = () => {
                         <input
                             id='subtitle'
                             type='text'
+                            defaultValue={loan?.subtitle}
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
                             {...register("subtitle", { required: true })}
                         />
@@ -118,6 +142,7 @@ const ApplyLoan = () => {
                             name='amount'
                             type="number"
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={loan?.amount}
                             {...register("amount", { required: true })}
                         />
                         {errors.amount && (
@@ -134,6 +159,7 @@ const ApplyLoan = () => {
                             type="number"
                             step="0.1"
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={loan?.interestRate}
                             {...register("interestRate", { required: true })}
                         />
                         {errors.interestRate && (
@@ -149,6 +175,7 @@ const ApplyLoan = () => {
                             name="termMonths"
                             type="number"
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={loan?.termMonths}
                             {...register("termMonths", { required: true })}
                         />
                         {errors.termMonths && (
@@ -164,6 +191,7 @@ const ApplyLoan = () => {
                             name="approvedCount"
                             type="number"
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={loan?.approvedCount}
                             {...register("approvedCount")}
                         />
                         {errors.approvedCount && (
@@ -179,6 +207,7 @@ const ApplyLoan = () => {
                             name="monthlyPayment"
                             type="number"
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={loan?.monthlyPayment}
                             {...register("monthlyPayment", { required: true })}
                         />
                         {errors.monthlyPayment && (
@@ -210,6 +239,7 @@ const ApplyLoan = () => {
                             id="description"
                             name="description"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg h-28 focus:ring-2 focus:ring-lime-400 outline-none"
+                            defaultValue={loan?.description}
                             {...register("description", { required: true })}
                         />
                         {errors.description && (

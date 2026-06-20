@@ -1,9 +1,26 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router";
 import LoanTable from "./LoanTable";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const MyLoans = () => {
+    const { user } = useAuth();
+
+    const axiosSecure = useAxiosSecure();
+
+    const { data: loans = [] } = useQuery({
+        queryKey: ["myLoans", user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/my-loans/${user.email}`);
+            return res.data;
+        }
+    })
+
+
     return (
         <div>
             <div className="p-5">
@@ -29,7 +46,7 @@ const MyLoans = () => {
 
             <div className="p-5 mt-8">
                 <div className="border border-gray-300 rounded-xl ">
-                    <LoanTable></LoanTable>
+                    <LoanTable loans={loans}></LoanTable>
                 </div>
             </div>
 

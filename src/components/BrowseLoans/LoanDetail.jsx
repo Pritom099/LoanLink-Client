@@ -1,5 +1,5 @@
 import { Percent, CalendarDays } from "lucide-react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -121,9 +121,13 @@ const LoanDetail = () => {
                     </div>
                 </div>
 
-                <button className="mt-16 w-full rounded-xl bg-black py-4 text-xl font-semibold text-white transition hover:bg-gray-900">
+                <Link
+                    to="/apply-loan"
+                    state={{loan}}
+                    className="mt-20 w-full rounded-xl bg-black py-4 text-xl font-semibold text-white transition hover:bg-gray-900 text-center block"
+                >
                     Start Application
-                </button>
+                </Link>
             </div>
         </div>
     );
