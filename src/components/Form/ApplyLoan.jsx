@@ -7,13 +7,14 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useLocation } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const ApplyLoan = () => {
     const location = useLocation();
     const loan = location.state?.loan;
     const axiosSecure = useAxiosSecure();
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     const {
         isPending,
@@ -24,7 +25,6 @@ const ApplyLoan = () => {
         mutationFn: async (payload) =>
             await axiosSecure.post("/request", payload),
         onSuccess: () => {
-            toast.success("Loan Apply Successfully");
             mutationReset();
         },
         onError: (err) => {
@@ -40,28 +40,53 @@ const ApplyLoan = () => {
         reset,
     } = useForm();
 
-    const onSubmit = async (data) => {
-        try {
-            const loanData = {
-                loanId: data.loanId,
-                email: data.email,
-                title: data.title,
-                subtitle: data.subtitle,
-                amount: Number(data.amount),
-                interestRate: Number(data.interestRate),
-                termMonths: Number(data.termMonths),
-                approvedCount: Number(data.approvedCount),
-                description: data.description,
-                monthlyPayment: Number(data.monthlyPayment),
-                status: data.status,
-                createdAt: new Date().toISOString(),
-            };
 
-            await mutateAsync(loanData);
-            reset();
-        } catch (err) {
-            console.log(err);
-        }
+    const onSubmit = async (data) => {
+        const loanData = {
+            loanId: data.loanId,
+            email: data.email,
+            title: data.title,
+            subtitle: data.subtitle,
+            amount: Number(data.amount),
+            interestRate: Number(data.interestRate),
+            termMonths: Number(data.termMonths),
+            approvedCount: Number(data.approvedCount),
+            description: data.description,
+            monthlyPayment: Number(data.monthlyPayment),
+            status: data.status,
+            createdAt: new Date().toISOString(),
+        };
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to apply for this loan?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#84cc16",
+            cancelButtonColor: "#ef4444",
+            confirmButtonText: "Yes, Apply!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await mutateAsync(loanData);
+                    reset();
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Loan Applied Successfully",
+                        icon: "success",
+                    });
+
+                } catch (err) {
+                    console.log(err);
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to apply loan",
+                        icon: "error",
+                    });
+                }
+            }
+        });
     };
 
     if (isPending) return <LoadingSpinner />;
@@ -225,7 +250,7 @@ const ApplyLoan = () => {
                             {...register("status", { required: true })}
                         >
                             <option value="pending">Pending</option>
-                           
+
                         </select>
                         {errors.status && (
                             <p className='text-red-500 text-xs mt-1'>{errors.status.message}</p>

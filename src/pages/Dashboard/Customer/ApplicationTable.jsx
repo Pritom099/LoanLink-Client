@@ -1,42 +1,6 @@
-const applications = [
-  {
-    id: "#1001",
-    loanType: "Emergency Fund",
-    amount: "$5,000",
-    appliedDate: "Jun 20, 2024",
-    status: "Approved",
-  },
-  {
-    id: "#1002",
-    loanType: "Business Loan",
-    amount: "$10,000",
-    appliedDate: "May 15, 2024",
-    status: "Approved",
-  },
-  {
-    id: "#1003",
-    loanType: "Quick Cash",
-    amount: "$3,000",
-    appliedDate: "Apr 10, 2024",
-    status: "Approved",
-  },
-  {
-    id: "#1004",
-    loanType: "Vehicle Loan",
-    amount: "$7,500",
-    appliedDate: "Jun 25, 2024",
-    status: "Pending",
-  },
-  {
-    id: "#1005",
-    loanType: "Personal Loan",
-    amount: "$4,500",
-    appliedDate: "Mar 5, 2024",
-    status: "Approved",
-  },
-];
 
-const ApplicationTable = () => {
+
+const ApplicationTable = ({loans}) => {
   return (
     <div className="overflow-x-auto bg-white rounded-xl shadow">
       <table className="min-w-full text-sm text-left">
@@ -55,23 +19,23 @@ const ApplicationTable = () => {
 
         {/* Body */}
         <tbody>
-          {applications.map((app, i) => (
+          {loans.map((loan, i) => (
             <tr key={i} className="border-b hover:bg-gray-50">
-              <td className="px-4 py-3">{app.id}</td>
-              <td className="px-4 py-3">{app.loanType}</td>
-              <td className="px-4 py-3 font-semibold">{app.amount}</td>
-              <td className="px-4 py-3">{app.appliedDate}</td>
+              <td className="px-4 py-3">{loan.loanId}</td>
+              <td className="px-4 py-3">{loan.title}</td>
+              <td className="px-4 py-3 font-semibold">${loan.amount}</td>
+              <td className="px-4 py-3">{loan.createdAt}</td>
 
               {/* Status */}
               <td className="px-4 py-3">
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    app.status === "Approved"
+                    loan.status === "Approved"
                       ? "bg-black text-white"
                       : "bg-gray-200 text-gray-700"
                   }`}
                 >
-                  {app.status}
+                  {loan.status}
                 </span>
               </td>
 

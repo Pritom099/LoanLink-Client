@@ -1,7 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import ApplicationTable from "./ApplicationTable";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 
 
 const LoanApply = () => {
+
+    const { user } = useAuth();
+
+    const axiosSecure = useAxiosSecure();
+
+    const { data: loans = [], isLoading } = useQuery({
+        queryKey: ["myLoans", user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/my-loans/${user.email}`);
+            return res.data;
+        }
+    })
+
+    const totalApplications = loans.length;
+
+    const approved = loans.filter(
+        loan => loan.status === "active"
+    ).length;
+
+    const pending = loans.filter(
+        loan => loan.status === "pending"
+    ).length;
+
+    if (isLoading) return <LoadingSpinner></LoadingSpinner>
+
     return (
         <div>
             <div className="p-5">
@@ -13,21 +43,21 @@ const LoanApply = () => {
 
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Total Applications</h2>
-                    <p className="text-4xl font-bold">5</p>
+                    <p className="text-4xl font-bold">{totalApplications}</p>
                 </div>
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Approved</h2>
-                    <p className="text-4xl font-bold text-green-600">4</p>
+                    <p className="text-4xl font-bold text-green-600">{approved}</p>
                 </div>
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Pending Review</h2>
-                    <p className="text-4xl font-bold text-red-500">1</p>
+                    <p className="text-4xl font-bold text-red-500">{pending}</p>
                 </div>
             </div>
 
             <div className="p-5 mt-8">
                 <div className="border border-gray-300 rounded-xl ">
-                    <ApplicationTable></ApplicationTable>
+                    <ApplicationTable loans={loans}></ApplicationTable>
                 </div>
             </div>
 

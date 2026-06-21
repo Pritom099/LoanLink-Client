@@ -4,9 +4,40 @@ import { RiFirefoxBrowserLine } from "react-icons/ri";
 import { Link } from "react-router";
 import CustomerChart from "./CustomerChart";
 import BalanceChart from "./BalanceChart";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 
 
 const CustomerStatistics = () => {
+
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+
+    const { data: loans = [], isLoading } = useQuery({
+        queryKey: ["myLoans", user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/my-loans/${user.email}`);
+            return res.data;
+        }
+    })
+
+    const totalOutstanding = loans.reduce((sum, loan) => {
+        return sum + (loan.amount - (loan.paidAmount || 0));
+    }, 0);
+    const approved = loans.filter(
+        loan => loan.status === "active"
+    ).length;
+
+    const pending = loans.filter(
+        loan => loan.status === "pending"
+    ).length;
+    const completedLoans = loans.filter(loan => loan.status === "Completed").length;
+
+    if (isLoading) return <LoadingSpinner></LoadingSpinner>
+
     return (
         <div>
             <div className="p-5">
@@ -21,7 +52,7 @@ const CustomerStatistics = () => {
                         <div className="flex items-center gap-10">
                             <div className="space-y-3">
                                 <h2 className="card-title  ">Total Disbursed</h2>
-                                <p className="text-4xl font-bold">$34,500</p>
+                                <p className="text-4xl font-bold">${totalOutstanding}</p>
                                 <p>Loan amount received.</p>
                             </div>
                             <div className="bg-gray-200 p-3 rounded-2xl">
@@ -35,7 +66,7 @@ const CustomerStatistics = () => {
                         <div className="flex items-center gap-10">
                             <div className="space-y-3">
                                 <h2 className="card-title  ">Active Loans</h2>
-                                <p className="text-4xl font-bold">3</p>
+                                <p className="text-4xl font-bold">{approved}</p>
                                 <p>Currently active loans.</p>
                             </div>
                             <div className="bg-gray-200 p-3 rounded-2xl">
@@ -49,7 +80,7 @@ const CustomerStatistics = () => {
                         <div className="flex items-center gap-10">
                             <div className="space-y-3">
                                 <h2 className="card-title  ">Pending Applications</h2>
-                                <p className="text-4xl font-bold">1</p>
+                                <p className="text-4xl font-bold">{pending}</p>
                                 <p>Awaiting approval.</p>
                             </div>
                             <div className="bg-gray-200 p-3 rounded-2xl">
@@ -63,7 +94,7 @@ const CustomerStatistics = () => {
                         <div className="flex items-center gap-10">
                             <div className="space-y-3">
                                 <h2 className="card-title  ">Completed Loans</h2>
-                                <p className="text-4xl font-bold">5</p>
+                                <p className="text-4xl font-bold">{completedLoans}</p>
                                 <p>Successfully paid off.</p>
                             </div>
                             <div className="bg-gray-200 p-3 rounded-2xl">
@@ -79,12 +110,12 @@ const CustomerStatistics = () => {
                 <div className="col-span-2 space-y-10">
                     <div className="border border-gray-300 rounded-xl p-5">
                         <h1 className="text-xl font-bold mb-7">Loan Activity</h1>
-                        <CustomerChart></CustomerChart>
+                        <CustomerChart loans={loans}></CustomerChart>
                     </div>
 
                     <div className="border border-gray-300 rounded-xl p-5">
                         <h1 className="text-xl font-bold mb-7">Account Balance</h1>
-                        <BalanceChart></BalanceChart>      
+                        <BalanceChart loans={loans}></BalanceChart>
                     </div>
                 </div>
 
@@ -93,8 +124,8 @@ const CustomerStatistics = () => {
                     <div className=" p-5 border border-gray-400 rounded-xl">
                         <h1 className="font-bold">Quick Actions</h1>
                         <div className="flex flex-col py-5 px-4 gap-3">
-                            <Link to='/browse-loans' className="my-btn"><RiFirefoxBrowserLine className="text-xl"/>Browse Loans</Link>
-                            <Link to='my-loans' className="my-btn"><CiViewList  className="text-xl"/>View My Loans</Link>
+                            <Link to='/browse-loans' className="my-btn"><RiFirefoxBrowserLine className="text-xl" />Browse Loans</Link>
+                            <Link to='my-loans' className="my-btn"><CiViewList className="text-xl" />View My Loans</Link>
                         </div>
                     </div>
 
@@ -102,36 +133,24 @@ const CustomerStatistics = () => {
                         <h1 className="font-bold mb-10">Recent Loans</h1>
 
                         <div className="space-y-6">
-                            <div className="flex items-center justify-between  border-b pb-3">
-                                <div>
-                                    <p className="font-bold">$5,000</p>
-                                    <p>Jun 15, 2024</p>
+                            {loans.slice(0, 3).map((loan) => (
+                                <div key={loan._id} className="flex items-center justify-between border-b pb-3">
+                                    <div>
+                                        <p className="font-bold">${loan.amount}</p>
+                                        <p>{loan.createdAt}</p>
+                                    </div>
+
+                                    <div className={`border rounded-xl py-1 px-3 ${loan.status === "active" ? "bg-green-500" :
+                                            loan.status === "completed" ? "bg-green-100" :
+                                                "bg-gray-200"
+                                        }`}>
+                                        <p className="text-sm">{loan.status}</p>
+                                    </div>
                                 </div>
-                                <div className="border border-gray-400 rounded-xl bg-green-500 py-1 px-3">
-                                    <p className="text-sm">Active</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between  border-b pb-3">
-                                <div>
-                                    <p className="font-bold">$10,000</p>
-                                    <p>May 20, 2024</p>
-                                </div>
-                                <div className="border border-gray-400 rounded-xl bg-green-500 py-1 px-3">
-                                    <p className="text-sm">Active</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between  border-b pb-3">
-                                <div>
-                                    <p className="font-bold">$3,000</p>
-                                    <p>Apr 10, 2024</p>
-                                </div>
-                                <div className="border border-gray-400 rounded-xl bg-green-100 py-1 px-3">
-                                    <p className="text-sm">Completed</p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
 
-                        <Link className="our-btn w-full mt-5">View All <FaArrowRight className="text-xl text-center ml-1"/></Link>
+                        <Link to='my-loans' className="our-btn w-full mt-5">View All <FaArrowRight className="text-xl text-center ml-1" /></Link>
                     </div>
 
                     <div className=" p-5 border border-gray-400 bg-gray-200 rounded-xl mt-8">
