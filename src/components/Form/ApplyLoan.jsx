@@ -224,8 +224,8 @@ const ApplyLoan = () => {
                             className="h-12 w-full px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-400 outline-none"
                             {...register("status", { required: true })}
                         >
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="pending">Pending</option>
+                           
                         </select>
                         {errors.status && (
                             <p className='text-red-500 text-xs mt-1'>{errors.status.message}</p>

@@ -12,6 +12,7 @@ import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import BrowseLoans from "../components/BrowseLoans/BrowseLoans";
 import LoanDetail from "../components/BrowseLoans/LoanDetail";
 import ApplyLoan from "../components/Form/ApplyLoan";
+import ManageRequests from "../pages/Dashboard/Admin/ManageRequests";
 
 
 export const router = createBrowserRouter([
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
             {
                 path: 'manage-users',
                 element: <ManageUsers></ManageUsers>
+            },
+            {
+                path: 'manage-requests',
+                element: <ManageRequests></ManageRequests>
             },
         ],
     }

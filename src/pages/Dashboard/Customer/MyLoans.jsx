@@ -8,7 +8,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyLoans = () => {
     const { user } = useAuth();
-
+   
     const axiosSecure = useAxiosSecure();
 
     const { data: loans = [] } = useQuery({
@@ -19,6 +19,21 @@ const MyLoans = () => {
             return res.data;
         }
     })
+
+    const totalOutstanding = loans.reduce((sum, loan) => {
+        return sum + (loan.amount - (loan.paidAmount || 0));
+    }, 0);
+
+    const monthlyDue = loans.reduce((sum, loan) => {
+        if (loan.status === "active") {
+            return sum + loan.monthlyPayment;
+        }
+        return sum;
+    }, 0);
+
+    const completedLoans = loans.filter(
+        loan => loan.status === "completed"
+    ).length;
 
 
     return (
@@ -32,16 +47,17 @@ const MyLoans = () => {
 
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Total Outstanding</h2>
-                    <p className="text-4xl font-bold">$11,500</p>
+                    <p className="text-4xl font-bold">${totalOutstanding}</p>
                 </div>
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Monthly Payment Due</h2>
-                    <p className="text-4xl font-bold">$892</p>
+                    <p className="text-4xl font-bold">${monthlyDue}</p>
                 </div>
                 <div className="card bg-base-100  border border-gray-300 rounded-2xl p-6">
                     <h2 className="card-title mb-5 text-lg text-gray-600">Completed Loans</h2>
-                    <p className="text-4xl font-bold ">2</p>
+                    <p className="text-4xl font-bold ">{completedLoans}</p>
                 </div>
+                
             </div>
 
             <div className="p-5 mt-8">
