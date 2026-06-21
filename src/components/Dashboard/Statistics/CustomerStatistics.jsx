@@ -24,9 +24,12 @@ const CustomerStatistics = () => {
         }
     })
 
-    const totalOutstanding = loans.reduce((sum, loan) => {
-        return sum + (loan.amount - (loan.paidAmount || 0));
-    }, 0);
+    const totalOutstanding = loans
+        .filter(loan => loan.status === "active")
+        .reduce((sum, loan) => {
+            return sum + (loan.amount - (loan.paidAmount || 0));
+        }, 0);
+
     const approved = loans.filter(
         loan => loan.status === "active"
     ).length;
@@ -141,8 +144,8 @@ const CustomerStatistics = () => {
                                     </div>
 
                                     <div className={`border rounded-xl py-1 px-3 ${loan.status === "active" ? "bg-green-500" :
-                                            loan.status === "completed" ? "bg-green-100" :
-                                                "bg-gray-200"
+                                        loan.status === "completed" ? "bg-green-100" :
+                                            "bg-gray-200"
                                         }`}>
                                         <p className="text-sm">{loan.status}</p>
                                     </div>

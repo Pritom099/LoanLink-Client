@@ -57,11 +57,13 @@ const LoanTable = ({ loans }) => {
                             {/* Action */}
                             <td className="px-4 py-2">
                                 <button
-                                    className="my-btn"
+                                    className={`my-btn ${loan.status !== "active" ? "opacity-50 cursor-not-allowed" : ""}`}
+                                    disabled={loan.status !== "active"}
                                     onClick={() => {
-
-                                        setSelectedLoan(loan);
-                                        document.getElementById('loan_modal').showModal();
+                                        if (loan.status === "active") {
+                                            setSelectedLoan(loan);
+                                            document.getElementById('loan_modal').showModal();
+                                        }
                                     }}
                                 >
                                     Pay

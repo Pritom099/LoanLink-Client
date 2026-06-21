@@ -8,7 +8,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyLoans = () => {
     const { user } = useAuth();
-   
+
     const axiosSecure = useAxiosSecure();
 
     const { data: loans = [] } = useQuery({
@@ -20,16 +20,17 @@ const MyLoans = () => {
         }
     })
 
-    const totalOutstanding = loans.reduce((sum, loan) => {
-        return sum + (loan.amount - (loan.paidAmount || 0));
-    }, 0);
+    const totalOutstanding = loans
+        .filter(loan => loan.status === "active")
+        .reduce((sum, loan) => {
+            return sum + (loan.amount - (loan.paidAmount || 0));
+        }, 0);
 
-    const monthlyDue = loans.reduce((sum, loan) => {
-        if (loan.status === "active") {
+    const monthlyDue = loans
+        .filter(loan => loan.status === "active")
+        .reduce((sum, loan) => {
             return sum + loan.monthlyPayment;
-        }
-        return sum;
-    }, 0);
+        }, 0);
 
     const completedLoans = loans.filter(
         loan => loan.status === "completed"
@@ -57,7 +58,7 @@ const MyLoans = () => {
                     <h2 className="card-title mb-5 text-lg text-gray-600">Completed Loans</h2>
                     <p className="text-4xl font-bold ">{completedLoans}</p>
                 </div>
-                
+
             </div>
 
             <div className="p-5 mt-8">

@@ -11,10 +11,10 @@ import {
 
 
 const CustomerChart = ({ loans }) => {
-
+    const activeLoans = loans.filter(loan => loan.status === "active");
     const grouped = {};
 
-    loans.forEach((loan) => {
+    activeLoans.forEach((loan) => {
         const month = new Date(loan.createdAt).toLocaleString("default", { month: "short" });
 
         if (!grouped[month]) {
@@ -46,7 +46,7 @@ const CustomerChart = ({ loans }) => {
                     <Legend />
 
                     {/* Bars */}
-                    <Bar dataKey="approved" fill="#3B82F6"  />
+                    <Bar dataKey="approved" fill="#3B82F6" />
                     <Bar dataKey="disbursed" fill="#10B981" />
                 </BarChart>
             </ResponsiveContainer>
