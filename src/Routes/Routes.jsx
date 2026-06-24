@@ -13,6 +13,7 @@ import BrowseLoans from "../components/BrowseLoans/BrowseLoans";
 import LoanDetail from "../components/BrowseLoans/LoanDetail";
 import ApplyLoan from "../components/Form/ApplyLoan";
 import ManageRequests from "../pages/Dashboard/Admin/ManageRequests";
+import PaymentSuccess from "../components/Form/PaymentSuccess";
 
 
 export const router = createBrowserRouter([
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
                 path: '/loan-details/:id',
                 element: <LoanDetail></LoanDetail>
             },
+            {
+                path: '/payment-success',
+                element: <PaymentSuccess></PaymentSuccess>
+            },
         ],
     },
     {
@@ -56,13 +61,13 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'profile',
-                element:(
-                    <Profile></Profile> 
+                element: (
+                    <Profile></Profile>
                 ),
             },
             {
                 path: 'loan-applications',
-                element:<LoanApply></LoanApply>
+                element: <LoanApply></LoanApply>
             },
             {
                 path: 'my-loans',

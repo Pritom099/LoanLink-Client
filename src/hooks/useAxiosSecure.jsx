@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
+
 import axios from 'axios'
 import useAuth from './useAuth'
+import { useNavigate } from 'react-router'
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

@@ -1,5 +1,24 @@
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 const LoanModal = ({ loan }) => {
+
+    const axiosSecure = useAxiosSecure();
     if (!loan) return null;
+
+
+    const handlePayment = async () => {
+        try {
+            const res = await axiosSecure.post("/create-checkout-session", {
+                amount: loan.monthlyPayment,
+                loanId: loan._id,
+            });
+            window.location.href = res.data.url;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <dialog id="loan_modal" className="modal modal-bottom sm:modal-middle">
@@ -18,7 +37,7 @@ const LoanModal = ({ loan }) => {
 
                 {/* Payment Button */}
                 <div className="mt-6">
-                    <button className="my-btn w-full">
+                    <button onClick={handlePayment} className="my-btn w-full">
                         Confirm Payment
                     </button>
                 </div>
