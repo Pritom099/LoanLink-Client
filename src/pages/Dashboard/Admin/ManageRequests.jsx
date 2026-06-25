@@ -39,6 +39,31 @@ const ManageRequests = () => {
         });
     };
 
+    const handleDelete = async (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to delete this loan!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axiosSecure.delete(`/request/${id}`);
+                    if (res.data.deletedCount > 0) {
+                        toast.success("Loan deleted successfully");
+                        refetch();
+                    }
+                } catch (error) {
+                    console.log(error);
+                    toast.error("Delete failed");
+                }
+            }
+        });
+    };
+
     const totalRequests = loans.length;
     const approvedLoans = loans.filter(
         loan => loan.status === "active"
@@ -75,7 +100,7 @@ const ManageRequests = () => {
 
             <div className="p-5 mt-8">
                 <div className="border border-gray-300 rounded-xl ">
-                    <RequestsTable loans={loans} handleApprove={handleApprove}></RequestsTable>
+                    <RequestsTable loans={loans} handleApprove={handleApprove} handleDelete={handleDelete}></RequestsTable>
                 </div>
             </div>
 

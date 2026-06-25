@@ -1,4 +1,6 @@
-const RequestsTable = ({ loans, handleApprove }) => {
+import { RiDeleteBinLine } from "react-icons/ri";
+
+const RequestsTable = ({ loans, handleApprove,handleDelete }) => {
 
   const getNextPaymentDate = (createdAt) => {
     const startDate = new Date(createdAt);
@@ -31,6 +33,7 @@ const RequestsTable = ({ loans, handleApprove }) => {
             <th className="px-4 py-3">Monthly</th>
             <th className="px-4 py-3">Status</th>
             <th className="px-4 py-3">Action</th>
+            <th className="px-3 py-3">Delete</th>
           </tr>
         </thead>
 
@@ -67,13 +70,12 @@ const RequestsTable = ({ loans, handleApprove }) => {
               {/* Status */}
               <td className="px-4 py-3">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    loan.status === "active"
+                  className={`px-3 py-1 rounded-full text-xs font-medium ${loan.status === "active"
                       ? "bg-black text-white"
                       : loan.status === "pending"
-                      ? "bg-yellow-200 text-yellow-800"
-                      : "bg-gray-200 text-gray-700"
-                  }`}
+                        ? "bg-yellow-200 text-yellow-800"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
                 >
                   {loan.status}
                 </span>
@@ -106,6 +108,10 @@ const RequestsTable = ({ loans, handleApprove }) => {
                   </span>
                 )}
 
+              </td>
+
+              <td className="px-4 py-3 text-xl cursor-pointer text-red-500" onClick={() => handleDelete(loan._id)} >
+                <RiDeleteBinLine />
               </td>
 
             </tr>
