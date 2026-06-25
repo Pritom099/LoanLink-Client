@@ -4,12 +4,16 @@ const LoanModal = ({ loan }) => {
 
     const axiosSecure = useAxiosSecure();
     if (!loan) return null;
-
+    const remainingAmount = loan.amount - (loan.paidAmount || 0);
+    const payableAmount = Math.min(
+        loan.monthlyPayment,
+        remainingAmount
+    );
 
     const handlePayment = async () => {
         try {
             const res = await axiosSecure.post("/create-checkout-session", {
-                amount: loan.monthlyPayment,
+                amount: payableAmount,
                 loanId: loan._id,
             });
             window.location.href = res.data.url;
@@ -18,6 +22,8 @@ const LoanModal = ({ loan }) => {
             console.log(error);
         }
     }
+
+
 
 
     return (
@@ -31,7 +37,7 @@ const LoanModal = ({ loan }) => {
                     <p><strong>Paid:</strong> ${loan.paidAmount || 0}</p>
                     <p>
                         <strong>Remaining:</strong>{" "}
-                        ${loan.amount - (loan.paidAmount || 0)}
+                        ${Math.max(0, remainingAmount)}
                     </p>
                 </div>
 

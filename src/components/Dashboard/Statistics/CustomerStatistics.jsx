@@ -39,6 +39,10 @@ const CustomerStatistics = () => {
     ).length;
     const completedLoans = loans.filter(loan => loan.status === "Completed").length;
 
+    const recentLoans = [...loans]
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 3);
+
     if (isLoading) return <LoadingSpinner></LoadingSpinner>
 
     return (
@@ -136,7 +140,7 @@ const CustomerStatistics = () => {
                         <h1 className="font-bold mb-10">Recent Loans</h1>
 
                         <div className="space-y-6">
-                            {loans.slice(0, 3).map((loan) => (
+                            {recentLoans.slice(0, 3).map((loan) => (
                                 <div key={loan._id} className="flex items-center justify-between border-b pb-3">
                                     <div>
                                         <p className="font-bold">${loan.amount}</p>

@@ -1,6 +1,6 @@
 import { RiDeleteBinLine } from "react-icons/ri";
 
-const RequestsTable = ({ loans, handleApprove,handleDelete }) => {
+const RequestsTable = ({ loans, handleApprove, handleDelete }) => {
 
   const getNextPaymentDate = (createdAt) => {
     const startDate = new Date(createdAt);
@@ -54,7 +54,7 @@ const RequestsTable = ({ loans, handleApprove,handleDelete }) => {
 
               {/* Outstanding */}
               <td className="px-4 py-3">
-                ${loan.amount - (loan.paidAmount || 0)}
+                ${Math.max(0, loan.amount - (loan.paidAmount || 0))}
               </td>
 
               {/* Next Payment */}
@@ -71,10 +71,10 @@ const RequestsTable = ({ loans, handleApprove,handleDelete }) => {
               <td className="px-4 py-3">
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-medium ${loan.status === "active"
-                      ? "bg-black text-white"
-                      : loan.status === "pending"
-                        ? "bg-yellow-200 text-yellow-800"
-                        : "bg-gray-200 text-gray-700"
+                    ? "bg-black text-white"
+                    : loan.status === "pending"
+                      ? "bg-yellow-200 text-yellow-800"
+                      : "bg-gray-200 text-gray-700"
                     }`}
                 >
                   {loan.status}

@@ -38,7 +38,7 @@ const LoanTable = ({ loans }) => {
 
                             <td className="px-4 py-3 font-semibold">${loan.amount}</td>
                             <td className="px-4 py-3">{loan.interestRate}%</td>
-                            <td className="px-4 py-3"> ${loan.amount - (loan.paidAmount || 0)}</td>
+                            <td className="px-4 py-3">${Math.max(0, loan.amount - (loan.paidAmount || 0))}</td>
                             <td className="px-4 py-3">{loan.createdAt ? getNextPaymentDate(loan.createdAt) : "N/A"}</td>
                             <td className="px-4 py-3">${loan.monthlyPayment}</td>
 
