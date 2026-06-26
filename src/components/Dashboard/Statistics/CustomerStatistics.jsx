@@ -37,7 +37,8 @@ const CustomerStatistics = () => {
     const pending = loans.filter(
         loan => loan.status === "pending"
     ).length;
-    const completedLoans = loans.filter(loan => loan.status === "Completed").length;
+
+    const completedLoans = loans.filter(loan => loan.status === "completed").length;
 
     const recentLoans = [...loans]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
