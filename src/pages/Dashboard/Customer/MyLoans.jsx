@@ -71,7 +71,7 @@ const MyLoans = () => {
                 <div className="space-y-7 border border-gray-300 rounded-xl py-8 text-center bg-gray-100">
                     <h1 className="text-2xl font-bold">Need More Funds?</h1>
                     <p className="text-lg text-gray-500">Browse our loan options and apply for additional financing</p>
-                    <Link className="my-btn">Browse Loans <FaArrowRight /></Link>
+                    <Link to={'/browse-loans'} className="my-btn">Browse Loans <FaArrowRight /></Link>
                 </div>
             </div>
         </div>

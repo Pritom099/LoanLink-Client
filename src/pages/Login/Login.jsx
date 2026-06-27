@@ -27,7 +27,13 @@ const Login = () => {
 
         try {
             //User Login
-            await signIn(email, password)
+            const { user } = await signIn(email, password)
+
+            await saveOrUpdateUser({
+                name: user?.displayName,
+                email: user?.email,
+                image: user?.photoURL,
+            })
 
             navigate(from, { replace: true })
             toast.success('Login Successful')

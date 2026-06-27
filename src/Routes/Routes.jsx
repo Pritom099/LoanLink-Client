@@ -14,12 +14,16 @@ import LoanDetail from "../components/BrowseLoans/LoanDetail";
 import ApplyLoan from "../components/Form/ApplyLoan";
 import ManageRequests from "../pages/Dashboard/Admin/ManageRequests";
 import PaymentSuccess from "../components/Form/PaymentSuccess";
+import ErrorPage from "../pages/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Mainlayout></Mainlayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -35,7 +39,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/apply-loan',
-                element: <ApplyLoan></ApplyLoan>,
+                element: <PrivateRoute><ApplyLoan></ApplyLoan></PrivateRoute>,
             },
             {
                 path: 'browse-loans',
@@ -53,33 +57,35 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: (<PrivateRoute>
+            <DashboardLayout></DashboardLayout>,
+        </PrivateRoute>),
         children: [
             {
                 index: true,
-                element: <Dashboard></Dashboard>
+                element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
             },
             {
                 path: 'profile',
                 element: (
-                    <Profile></Profile>
+                    <PrivateRoute><Profile></Profile></PrivateRoute>
                 ),
             },
             {
                 path: 'loan-applications',
-                element: <LoanApply></LoanApply>
+                element: <PrivateRoute><LoanApply></LoanApply></PrivateRoute>
             },
             {
                 path: 'my-loans',
-                element: <MyLoans></MyLoans>
+                element:<PrivateRoute> <MyLoans></MyLoans></PrivateRoute>
             },
             {
                 path: 'manage-users',
-                element: <ManageUsers></ManageUsers>
+                element: <PrivateRoute><AdminRoute><ManageUsers></ManageUsers></AdminRoute></PrivateRoute>
             },
             {
                 path: 'manage-requests',
-                element: <ManageRequests></ManageRequests>
+                element: <PrivateRoute><AdminRoute><ManageRequests></ManageRequests></AdminRoute></PrivateRoute>
             },
         ],
     }

@@ -12,11 +12,14 @@ import CustomerMenu from "./Menu/CustomerMenu";
 import AdminMenu from "./Menu/AdminMenu";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
+import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 
 
 const Sidebar = () => {
     const { logOut } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
+    const [role, isRoleLoading] = useRole()
 
     const handleLogout = () => {
         Swal.fire({
@@ -39,6 +42,8 @@ const Sidebar = () => {
             }
         });
     };
+
+    if(isRoleLoading) return <LoadingSpinner></LoadingSpinner>
 
     return (
         <>
@@ -94,9 +99,9 @@ const Sidebar = () => {
                                 address='/dashboard'
                             />
 
-                            <CustomerMenu></CustomerMenu>
-                            <AdminMenu></AdminMenu>
-
+                            {role === 'customer' && <CustomerMenu></CustomerMenu>}
+                            {role === 'admin' && <AdminMenu></AdminMenu>}
+                            
                         </nav>
                     </div>
 

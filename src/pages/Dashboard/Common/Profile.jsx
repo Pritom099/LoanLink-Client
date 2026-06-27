@@ -1,11 +1,16 @@
 import coverImg from '../../../assets/Images/Bangladesh-Bank-devalue-TK-USD.jpg'
+import LoadingSpinner from '../../../components/shared/LoadingSpinner'
 import useAuth from '../../../hooks/useAuth'
+import useRole from '../../../hooks/useRole'
 
 
 
 
 const Profile = () => {
   const { user } = useAuth()
+
+  const [role, isRoleLoading] = useRole();
+  if (isRoleLoading) return <LoadingSpinner></LoadingSpinner>
   
 
   return (
@@ -26,7 +31,7 @@ const Profile = () => {
           </a> 
 
           <p className='p-2 px-4 text-xs text-white bg-lime-500 rounded-full'>
-            
+            {role}
           </p>
           <p className='mt-2 text-xl font-medium text-gray-800 '>
             User Id: {user?.uid}
