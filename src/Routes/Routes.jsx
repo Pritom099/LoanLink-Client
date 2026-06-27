@@ -17,6 +17,7 @@ import PaymentSuccess from "../components/Form/PaymentSuccess";
 import ErrorPage from "../pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import CustomerRoute from "./CustomerRoute";
 
 
 export const router = createBrowserRouter([
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/apply-loan',
-                element: <PrivateRoute><ApplyLoan></ApplyLoan></PrivateRoute>,
+                element: <PrivateRoute><CustomerRoute><ApplyLoan></ApplyLoan></CustomerRoute></PrivateRoute>,
             },
             {
                 path: 'browse-loans',
@@ -73,11 +74,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'loan-applications',
-                element: <PrivateRoute><LoanApply></LoanApply></PrivateRoute>
+                element: <PrivateRoute><CustomerRoute><LoanApply></LoanApply></CustomerRoute></PrivateRoute>
             },
             {
                 path: 'my-loans',
-                element:<PrivateRoute> <MyLoans></MyLoans></PrivateRoute>
+                element:<PrivateRoute><CustomerRoute><MyLoans></MyLoans></CustomerRoute> </PrivateRoute>
             },
             {
                 path: 'manage-users',
