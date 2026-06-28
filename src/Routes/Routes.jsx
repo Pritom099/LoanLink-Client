@@ -18,6 +18,7 @@ import ErrorPage from "../pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import CustomerRoute from "./CustomerRoute";
+import Coverage from "../pages/Coverage/Coverage";
 
 
 export const router = createBrowserRouter([
@@ -29,6 +30,11 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
+            },
+            {
+                path: '/map',
+                element: <Coverage></Coverage>,
+                loader: () => fetch('/seviceCenters.json').then(res => res.json())
             },
             {
                 path: '/login',

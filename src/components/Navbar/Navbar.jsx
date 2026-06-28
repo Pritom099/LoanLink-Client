@@ -68,6 +68,7 @@ const Navbar = () => {
                     <Link to='/browse-loans' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Browse Loans</Link>
                     {user && <Link to='/dashboard' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Dashboard</Link>}
                     {user && <Link to='/apply-loan' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Apply Loan</Link>}
+                    <Link to='/map' className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'>Coverage</Link>
                 </ul>
             </div>
             <div className="navbar-end gap-5">
