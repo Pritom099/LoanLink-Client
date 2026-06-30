@@ -11,7 +11,7 @@ const LoanCard = ({ loan }) => {
 
             {/* Description */}
             <p className="mt-3 text-gray-600 text-lg">
-                {loan?.subtitle}
+                {loan?.title}
             </p>
 
             {/* Loan Info */}
