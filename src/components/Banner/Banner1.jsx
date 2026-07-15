@@ -3,18 +3,15 @@ import LoanCard from "../BrowseLoans/LoanCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import ErrorPage from "../../pages/ErrorPage";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-//import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Banner1 = () => {
-    //const axiosSecure = useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
 
     const { data: loans = [], isLoading, isError } = useQuery({
         queryKey: ['loans'],
         queryFn: async () => {
-            const res = await axios.get(
-                "https://loanlink-server-jjmp.onrender.com/loans"
-            );
+            const res = await axiosSecure.get('/loans');
             return res.data;
         }
     })

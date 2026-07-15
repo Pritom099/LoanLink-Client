@@ -1,21 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-//import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoanCard from "./LoanCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import ErrorPage from "../../pages/ErrorPage";
 import { useState } from "react";
-import axios from "axios";
 
 const BrowseLoans = () => {
     const [search, setSearch] = useState("");
-   // const axiosSecure = useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
 
     const { data: loans = [], isLoading, isError } = useQuery({
         queryKey: ['loans'],
         queryFn: async () => {
-            const res = await axios.get(
-                "https://loanlink-server-jjmp.onrender.com/loans"
-            );
+            const res = await axiosSecure.get('/loans');
             return res.data;
         }
     })
